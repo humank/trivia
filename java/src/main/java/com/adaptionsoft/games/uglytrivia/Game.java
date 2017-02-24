@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
+
+	//TODO-working-on : Check public interface of the server-side code to see how it is being used by the client-side code
+
     ArrayList players = new ArrayList();
     int[] places = new int[6];
     int[] purses  = new int[6];
@@ -22,18 +25,23 @@ public class Game {
 			popQuestions.addLast("Pop Question " + i);
 			scienceQuestions.addLast(("Science Question " + i));
 			sportsQuestions.addLast(("Sports Question " + i));
+
+			//TODO: inline method Game.createRockQuestion();
 			rockQuestions.addLast(createRockQuestion(i));
     	}
     }
 
+    //TODO: change method to be private.
 	public String createRockQuestion(int index){
 		return "Rock Question " + index;
 	}
-	
+
+	//TODO: remove the unused method.
 	public boolean isPlayable() {
 		return (howManyPlayers() >= 2);
 	}
 
+	//TODO: The return value of the method is not used.
 	public boolean add(String playerName) {
 		
 		
@@ -46,7 +54,8 @@ public class Game {
 	    System.out.println("They are player number " + players.size());
 		return true;
 	}
-	
+
+	//TODO: this method should be private because it is only used by its own class Game.
 	public int howManyPlayers() {
 		return players.size();
 	}
