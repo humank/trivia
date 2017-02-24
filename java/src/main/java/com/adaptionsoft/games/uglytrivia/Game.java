@@ -7,6 +7,7 @@ public class Game {
 
 	//TODO-working-on : Check public interface of the server-side code to see how it is being used by the client-side code
 
+	//TODO: The fields of class Game should be private.
     ArrayList players = new ArrayList();
     int[] places = new int[6];
     int[] purses  = new int[6];
@@ -60,6 +61,7 @@ public class Game {
 		return players.size();
 	}
 
+	//TODO: Rename the name of the parameter of method Game.roll() to be rollingNumber.
 	public void roll(int roll) {
 		System.out.println(players.get(currentPlayer) + " is the current player");
 		System.out.println("They have rolled a " + roll);
@@ -69,6 +71,8 @@ public class Game {
 				isGettingOutOfPenaltyBox = true;
 				
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
+
+				//TODO: Duplicate code in method Game.roll()
 				places[currentPlayer] = places[currentPlayer] + roll;
 				if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 				
@@ -130,13 +134,17 @@ public class Game {
 						+ " now has "
 						+ purses[currentPlayer]
 						+ " Gold Coins.");
-				
+
+
+				//TODO: Rename variable winner to be isGameStillInProgress
 				boolean winner = didPlayerWin();
 				currentPlayer++;
 				if (currentPlayer == players.size()) currentPlayer = 0;
 				
 				return winner;
 			} else {
+
+				//TODO: Duplicate code in method Game.wasCorrectlyAnswered()
 				currentPlayer++;
 				if (currentPlayer == players.size()) currentPlayer = 0;
 				return true;
@@ -145,7 +153,8 @@ public class Game {
 			
 			
 		} else {
-		
+
+			//TODO: Duplicate code in method Game.wasCorrectlyAnswered(). Outer.
 			System.out.println("Answer was corrent!!!!");
 			purses[currentPlayer]++;
 			System.out.println(players.get(currentPlayer) 
@@ -168,10 +177,13 @@ public class Game {
 		
 		currentPlayer++;
 		if (currentPlayer == players.size()) currentPlayer = 0;
+
+		//TODO: The return value of method Game.wrongAnswer() is unnecessary and should be eliminated.
 		return true;
 	}
 
 
+	//TODO: The name of the method Game.didPlayerWin() should be Game.isGameStillInProgress()
 	private boolean didPlayerWin() {
 		return !(purses[currentPlayer] == 6);
 	}
