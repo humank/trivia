@@ -2,7 +2,6 @@ package com.adaptionsoft.games.uglytrivia;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -11,35 +10,35 @@ public class Game {
 
     private static final Logger logger = Logger.getLogger("kata.trivia.Game");
     private static FileHandler fileHandler = null;
+    private final QuestionMaker questionMaker = new QuestionMaker();
+    ;
 
+    //TODO: Move playerName, places, purses and inPenaltyBox to a new class Player.
+    //TODO: Make player lists type-safe
     private ArrayList players = new ArrayList();
     private int[] places = new int[6];
     private int[] purses = new int[6];
     private boolean[] inPenaltyBox = new boolean[6];
-
-    private LinkedList popQuestions = new LinkedList();
-    private LinkedList scienceQuestions = new LinkedList();
-    private LinkedList sportsQuestions = new LinkedList();
-    private LinkedList rockQuestions = new LinkedList();
 
     private int currentPlayer = 0;
     private boolean isGettingOutOfPenaltyBox;
 
     public Game() {
 
-        try{
-            fileHandler = new FileHandler("%h/Game-logging.log",10000000,1,true);
+        try {
+            fileHandler = new FileHandler("%h/Game-logging.log", 10000000, 1, true);
             fileHandler.setFormatter(new SimpleFormatter());
-        }catch(IOException ioe){
+        } catch (IOException ioe) {
             ioe.printStackTrace();
         }
         logger.addHandler(fileHandler);
 
         for (int i = 0; i < 50; i++) {
-            getPopQuestions().addLast("Pop Question " + i);
-            getScienceQuestions().addLast(("Science Question " + i));
-            getSportsQuestions().addLast(("Sports Question " + i));
-            getRockQuestions().addLast("Rock Question " + i);
+
+            questionMaker.addPopQuestion("Pop Question " + i);
+            questionMaker.addScienceQuestion(("Science Question " + i));
+            questionMaker.addSportsQuestion(("Sports Question " + i));
+            questionMaker.addRockQuestion("Rock Question " + i);
         }
     }
 
@@ -102,13 +101,13 @@ public class Game {
 
     private void askQuestion() {
         if (currentCategory() == "Pop")
-            logger.info(String.valueOf(getPopQuestions().removeFirst()));
+            logger.info(questionMaker.removeFirstPopQuestion());
         if (currentCategory() == "Science")
-            logger.info(String.valueOf(getScienceQuestions().removeFirst()));
+            logger.info(questionMaker.removeFirstScienceQuestion());
         if (currentCategory() == "Sports")
-            logger.info(String.valueOf(getSportsQuestions().removeFirst()));
+            logger.info(questionMaker.removeFirstSportsQuestion());
         if (currentCategory() == "Rock")
-            logger.info(String.valueOf(getRockQuestions().removeFirst()));
+            logger.info(questionMaker.removeFirstRockQuestion());
     }
 
     private String currentCategory() {
@@ -204,37 +203,6 @@ public class Game {
         this.inPenaltyBox = inPenaltyBox;
     }
 
-    public LinkedList getPopQuestions() {
-        return popQuestions;
-    }
-
-    public void setPopQuestions(LinkedList popQuestions) {
-        this.popQuestions = popQuestions;
-    }
-
-    public LinkedList getScienceQuestions() {
-        return scienceQuestions;
-    }
-
-    public void setScienceQuestions(LinkedList scienceQuestions) {
-        this.scienceQuestions = scienceQuestions;
-    }
-
-    public LinkedList getSportsQuestions() {
-        return sportsQuestions;
-    }
-
-    public void setSportsQuestions(LinkedList sportsQuestions) {
-        this.sportsQuestions = sportsQuestions;
-    }
-
-    public LinkedList getRockQuestions() {
-        return rockQuestions;
-    }
-
-    public void setRockQuestions(LinkedList rockQuestions) {
-        this.rockQuestions = rockQuestions;
-    }
 
     public int getCurrentPlayer() {
         return currentPlayer;

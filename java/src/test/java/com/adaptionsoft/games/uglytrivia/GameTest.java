@@ -2,18 +2,13 @@ package com.adaptionsoft.games.uglytrivia;
 
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 /**
  * Created by kim on 2017/2/24.
  */
 public class GameTest {
-
-    //TODO-user-intent : the game should be over if a player rolls the dice and answers each question correctly for 6 times
-
-    //TODO-user-intent : the game should be over if a player rolls the dice for 7 times and answer the question wrongly for 1 time followed by an odd rolling number but then correctly for 6 times.
-
-    //TODO-user-intent : the game should be over if a player rolls the diec for 8 times and answers the question wrongly for 1 time followed by an even rolling number but then correctly for 7 times.
 
     @Test
     public void the_game_should_be_over_if_a_player_rolls_the_dice_and_answers_each_question_correctly_for_6_times() {
@@ -72,6 +67,39 @@ public class GameTest {
         }
 
         assertFalse(isGameStillInProgress);
+    }
+
+    @Test
+    public void add_two_pop_questions_and_could_remove_the_first_one(){
+
+        QuestionMaker questionMaker = new QuestionMaker();
+        questionMaker.addPopQuestion("Pop Question 1");
+        questionMaker.addPopQuestion("Pop Question 2");
+        assertEquals("Pop Question 1", questionMaker.removeFirstPopQuestion());
+    }
+
+    @Test
+    public void add_two_science_questions_and_could_remove_the_first_one(){
+        QuestionMaker questionMaker = new QuestionMaker();
+        questionMaker.addScienceQuestion("Science Question 1");
+        questionMaker.addScienceQuestion("Science Question 2");
+        assertEquals("Science Question 1", questionMaker.removeFirstScienceQuestion());
+    }
+
+    @Test
+    public void add_two_sport_questions_and_could_remove_the_first_one(){
+        QuestionMaker questionMaker = new QuestionMaker();
+        questionMaker.addSportsQuestion("Sport Question 1");
+        questionMaker.addSportsQuestion("Sport Question 2");
+        assertEquals("Sport Question 1", questionMaker.removeFirstSportsQuestion());
+    }
+
+    @Test
+    public void add_two_rock_questions_and_could_remove_the_first_one(){
+        QuestionMaker questionMaker = new QuestionMaker();
+        questionMaker.addRockQuestion("Rock Question 1");
+        questionMaker.addRockQuestion("Rock Question 2");
+        assertEquals("Rock Question 1", questionMaker.removeFirstRockQuestion());
     }
 
 }
